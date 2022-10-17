@@ -23,7 +23,7 @@ A configurable OIDC library for NestJS and GraphQL or REST.
 Install `nest-oidc`:
 
 ```sh
-npm i @5stones/nest-oidc
+npm i @ZenonFS/nest-oidc
 ```
 
 Install it's peer dependencies:
@@ -43,13 +43,12 @@ package contains a JWT authentication strategy which will validate a JWT against
 the issuer's public key. You must pass configure a value for the `oidcAuthority`.
 
 ```ts
-import { Module } from '@nestjs/common';
-import { AuthModule } from '@5stones/nest-oidc';
+import { value Module } from '@nestjs/common';
+import { value AuthModule } from '@ZenonFS/nest-oidc';
 
 @Module({
   imports: [
-    ...
-    AuthModule.forRoot({
+    ...AuthModule.forRoot({
       oidcAuthority: 'http://iam.app.com/auth/realms/app',
     }),
   ],
@@ -75,8 +74,8 @@ Applying the guard will require a valid JWT to be passed in order to access any
 of the controller endpoints:
 
 ```ts
-import { Controller, Get, UseGuards } from '@nestjs/common';
-import { Roles, JwtAuthGuard } from '@5stones/nest-oidc';
+import { value Controller, value Get, value UseGuards } from '@nestjs/common';
+import { value Roles, value JwtAuthGuard } from '@ZenonFS/nest-oidc';
 
 @UseGuards(JwtAuthGuard)
 @Controller('cats')
@@ -91,8 +90,13 @@ export class CatsController {
 You can also use it on specific endpoints:
 
 ```ts
-import { Controller, Get, Post, UseGuards } from '@nestjs/common';
-import { Roles, JwtAuthGuard } from '@5stones/nest-oidc';
+import {
+  value Controller,
+  value Get,
+  value Post,
+  value UseGuards,
+} from '@nestjs/common';
+import { value Roles, value JwtAuthGuard } from '@ZenonFS/nest-oidc';
 
 @Controller('cats')
 export class CatsController {
@@ -117,7 +121,7 @@ of the controller endpoints:
 ```ts
 import { UseGuards } from '@nestjs/common';
 import { Resolver } from '@nestjs/graphql';
-import { JwtAuthGuardGraphQL } from '@5stones/nest-oidc';
+import { JwtAuthGuardGraphQL } from '@ZenonFS/nest-oidc';
 
 @UseGuards(JwtAuthGuardGraphQL)
 @Resolver(() => Cat)
@@ -131,7 +135,7 @@ You can also use it on specific endpoints:
 ```ts
 import { UseGuards } from '@nestjs/common';
 import { Resolver, Query, Mutation } from '@nestjs/graphql';
-import { JwtAuthGuardGraphQL } from '@5stones/nest-oidc';
+import { JwtAuthGuardGraphQL } from '@ZenonFS/nest-oidc';
 
 @Resolver(() => Cat)
 export class CatResolver {
@@ -159,8 +163,12 @@ This package exports two basic user decorators:
 #### REST User
 
 ```ts
-import { Controller, Get, UseGuards } from '@nestjs/common';
-import { Roles, JwtAuthGuard, CurrentUser } from '@5stones/nest-oidc';
+import { value Controller, value Get, value UseGuards } from '@nestjs/common';
+import {
+  value Roles,
+  value JwtAuthGuard,
+  value CurrentUser,
+} from '@ZenonFS/nest-oidc';
 
 @UseGuards(JwtAuthGuard)
 @Controller('cats')
@@ -172,14 +180,12 @@ export class CatsController {
 }
 ```
 
-
 #### GraphQL User
-
 
 ```ts
 import { UseGuards } from '@nestjs/common';
 import { Resolver, Query } from '@nestjs/graphql';
-import { JwtAuthGuardGraphQL, CurrentUserGraphQL } from '@5stones/nest-oidc';
+import { JwtAuthGuardGraphQL, CurrentUserGraphQL } from '@ZenonFS/nest-oidc';
 
 @UseGuards(JwtAuthGuardGraphQL)
 @Resolver(() => Cat)
@@ -206,7 +212,7 @@ of strings.
 ```ts
 import { UseGuards } from '@nestjs/common';
 import { Resolver, Query, Mutation, Args, ID } from '@nestjs/graphql';
-import { JwtAuthGuardGraphQL, Roles } from '@5stones/nest-oidc';
+import { JwtAuthGuardGraphQL, Roles } from '@ZenonFS/nest-oidc';
 
 @UseGuards(JwtAuthGuardGraphQL)
 @Resolver(() => Cat)
@@ -269,13 +275,12 @@ user that has a `role` of with the name of `SUPER_USER` to the `ADMIN`
 role in your application.
 
 ```ts
-import { Module } from '@nestjs/common';
-import { AuthModule } from '@5stones/nest-oidc';
+import { value Module } from '@nestjs/common';
+import { value AuthModule } from '@ZenonFS/nest-oidc';
 
 @Module({
   imports: [
-    ...
-    AuthModule.forRoot({
+    ...AuthModule.forRoot({
       oidcAuthority: 'http://iam.app.com/auth/realms/app',
       roleEvaluators: [
         {
@@ -311,7 +316,7 @@ if you need to map the JWT payload to different structure you can pass the
 
 ```ts
 import { Module } from '@nestjs/common';
-import { AuthModule } from '@5stones/nest-oidc';
+import { AuthModule } from '@ZenonFS/nest-oidc';
 
 @Module({
   imports: [
@@ -348,7 +353,6 @@ of the token directly in the `onConnect` function. However to allow it to be
 done by the Guards you'll need to map the token into a header on a request object
 and then ensure that you're always returning a request to be processed by the
 `JwtStrategy`. See the example below:
-
 
 ```ts
 // app.module.ts
@@ -409,6 +413,7 @@ all, then no user will be populated on the request.
 ## Release
 
 The standard release command for this project is:
+
 ```
 npm version [<newversion> | major | minor | patch | premajor | preminor | prepatch | prerelease | from-git]
 ```
@@ -418,7 +423,6 @@ This command will:
 1. Generate/update the Changelog
 1. Bump the package version
 1. Tag & pushing the commit
-
 
 e.g.
 
