@@ -1,10 +1,11 @@
-import { Injectable, Inject, HttpService } from '@nestjs/common';
+import { Injectable, Inject} from '@nestjs/common';
 import * as jsonwebtoken from 'jsonwebtoken';
 import { JwksClient } from 'jwks-rsa';
 import * as jexl from 'jexl';
 
 import { JWT_MAPPER, OIDC_AUTHORITY, ROLE_EVALUATORS } from '../consts';
 import { RoleEvaluator } from '../interfaces';
+import { HttpService } from '@nestjs/axios';
 
 const length = (elem: any) => elem ? elem.length : 0;
 const mapValue = (obj: any) => obj ? obj.map(value => ({ value })) : [];
