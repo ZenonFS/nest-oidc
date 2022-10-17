@@ -2,28 +2,31 @@
 
 A configurable OIDC library for NestJS and GraphQL or REST.
 
-- [Install](#install)
-- [Basic Setup & Usage](#basic-setup--usage)
-- [Guards](#guards)
-  - [REST](#rest-guard)
-  - [GraphQL](#graphql-guard)
-- [Current User](#current-user)
-  - [REST](#rest-user)
-  - [GraphQL](#graphql-user)
-- [Roles](#roles)
-- [Role Evaluators](#role-evaluators)
-- [JWT Mapping](#jwt-mapping)
-- [Advanced](#advanced)
-  - [Authenticating GraphQL Subscriptions](#authenticating-graphql-subscriptions)
-  - [Optional Authentication](#optional-authentication)
-- [Release](#release)
+- [NestJS OIDC](#nestjs-oidc)
+  - [Install](#install)
+  - [Basic Setup & Usage](#basic-setup--usage)
+  - [Guards](#guards)
+      - [REST Guard](#rest-guard)
+      - [GraphQL Guard](#graphql-guard)
+  - [Current User](#current-user)
+      - [REST User](#rest-user)
+      - [GraphQL User](#graphql-user)
+  - [Roles](#roles)
+      - [Example](#example)
+  - [Role Evaluators](#role-evaluators)
+      - [Example](#example-1)
+  - [JWT Mapper](#jwt-mapper)
+  - [Advanced](#advanced)
+      - [Authenticating GraphQL Subscriptions](#authenticating-graphql-subscriptions)
+      - [Optional Authentication](#optional-authentication)
+  - [Release](#release)
 
 ## Install
 
 Install `nest-oidc`:
 
 ```sh
-npm i @ZenonFS/nest-oidc
+npm i @zenonfs/nest-oidc
 ```
 
 Install it's peer dependencies:
@@ -44,7 +47,7 @@ the issuer's public key. You must pass configure a value for the `oidcAuthority`
 
 ```ts
 import { value Module } from '@nestjs/common';
-import { value AuthModule } from '@ZenonFS/nest-oidc';
+import { value AuthModule } from '@zenonfs/nest-oidc';
 
 @Module({
   imports: [
@@ -75,7 +78,7 @@ of the controller endpoints:
 
 ```ts
 import { value Controller, value Get, value UseGuards } from '@nestjs/common';
-import { value Roles, value JwtAuthGuard } from '@ZenonFS/nest-oidc';
+import { value Roles, value JwtAuthGuard } from '@zenonfs/nest-oidc';
 
 @UseGuards(JwtAuthGuard)
 @Controller('cats')
@@ -96,7 +99,7 @@ import {
   value Post,
   value UseGuards,
 } from '@nestjs/common';
-import { value Roles, value JwtAuthGuard } from '@ZenonFS/nest-oidc';
+import { value Roles, value JwtAuthGuard } from '@zenonfs/nest-oidc';
 
 @Controller('cats')
 export class CatsController {
@@ -121,7 +124,7 @@ of the controller endpoints:
 ```ts
 import { UseGuards } from '@nestjs/common';
 import { Resolver } from '@nestjs/graphql';
-import { JwtAuthGuardGraphQL } from '@ZenonFS/nest-oidc';
+import { JwtAuthGuardGraphQL } from '@zenonfs/nest-oidc';
 
 @UseGuards(JwtAuthGuardGraphQL)
 @Resolver(() => Cat)
@@ -135,7 +138,7 @@ You can also use it on specific endpoints:
 ```ts
 import { UseGuards } from '@nestjs/common';
 import { Resolver, Query, Mutation } from '@nestjs/graphql';
-import { JwtAuthGuardGraphQL } from '@ZenonFS/nest-oidc';
+import { JwtAuthGuardGraphQL } from '@zenonfs/nest-oidc';
 
 @Resolver(() => Cat)
 export class CatResolver {
@@ -168,7 +171,7 @@ import {
   value Roles,
   value JwtAuthGuard,
   value CurrentUser,
-} from '@ZenonFS/nest-oidc';
+} from '@zenonfs/nest-oidc';
 
 @UseGuards(JwtAuthGuard)
 @Controller('cats')
@@ -185,7 +188,7 @@ export class CatsController {
 ```ts
 import { UseGuards } from '@nestjs/common';
 import { Resolver, Query } from '@nestjs/graphql';
-import { JwtAuthGuardGraphQL, CurrentUserGraphQL } from '@ZenonFS/nest-oidc';
+import { JwtAuthGuardGraphQL, CurrentUserGraphQL } from '@zenonfs/nest-oidc';
 
 @UseGuards(JwtAuthGuardGraphQL)
 @Resolver(() => Cat)
@@ -212,7 +215,7 @@ of strings.
 ```ts
 import { UseGuards } from '@nestjs/common';
 import { Resolver, Query, Mutation, Args, ID } from '@nestjs/graphql';
-import { JwtAuthGuardGraphQL, Roles } from '@ZenonFS/nest-oidc';
+import { JwtAuthGuardGraphQL, Roles } from '@zenonfs/nest-oidc';
 
 @UseGuards(JwtAuthGuardGraphQL)
 @Resolver(() => Cat)
@@ -276,7 +279,7 @@ role in your application.
 
 ```ts
 import { value Module } from '@nestjs/common';
-import { value AuthModule } from '@ZenonFS/nest-oidc';
+import { value AuthModule } from '@zenonfs/nest-oidc';
 
 @Module({
   imports: [
@@ -316,7 +319,7 @@ if you need to map the JWT payload to different structure you can pass the
 
 ```ts
 import { Module } from '@nestjs/common';
-import { AuthModule } from '@ZenonFS/nest-oidc';
+import { AuthModule } from '@zenonfs/nest-oidc';
 
 @Module({
   imports: [
